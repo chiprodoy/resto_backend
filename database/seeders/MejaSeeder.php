@@ -2,24 +2,24 @@
 
 namespace Database\Seeders;
 
-use App\Models\Merchant;
+use App\Models\Meja;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class MerchantSeeder extends Seeder
+class MejaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Merchant::create(
-            [
-                'merchant_name'=>'Eleu Resto & Cafe',
+        for($i=1;$i<=20;$i++){
+            Meja::create([
                 'uuid'=>'-',
-                'slug'=>'-',
-                'merchant_owner_id'=>1
-            ]
-        );
+                'nmr_meja'=>$i,
+                'merchant_id'=>1,
+            ]);
+        }
+
     }
 }
