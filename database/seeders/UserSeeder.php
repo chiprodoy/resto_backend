@@ -12,24 +12,31 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\User::factory()->create([
+        $user = \App\Models\User::factory()->create([
              'name' => 'Test User',
              'email' => 'test@example.com',
         ]);
 
-        \App\Models\User::factory()->create([
+        $user->role()->attach(1);
+
+        $user=\App\Models\User::factory()->create([
             'name' => 'Waiter',
             'email' => 'waiters@example.com',
        ]);
+       $user->role()->attach(2);
 
-        \App\Models\User::factory()->create([
+       $user=\App\Models\User::factory()->create([
             'name' => 'Kasir',
             'email' => 'kasir@example.com',
        ]);
+       $user->role()->attach(3);
 
-       \App\Models\User::factory()->create([
+       $user=\App\Models\User::factory()->create([
         'name' => 'Dapur',
         'email' => 'dapur@example.com',
-   ]);
+       ]);
+
+       $user->role()->attach(4);
+
     }
 }

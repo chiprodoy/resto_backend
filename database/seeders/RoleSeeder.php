@@ -18,11 +18,11 @@ class RoleSeeder extends Seeder
         ]);
 
         Role::create([
-            'role_name' => 'kasir'
+            'role_name' => 'waiter'
         ]);
 
         Role::create([
-            'role_name' => 'waiter'
+            'role_name' => 'kasir'
         ]);
 
         Role::create([
