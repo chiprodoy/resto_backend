@@ -13,6 +13,7 @@ use function Laravel\Prompts\password;
 
 class AuthenticationTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * A basic feature test example.
      */
