@@ -21,6 +21,7 @@ return new class extends Migration
             $table->boolean('stok_ada')->default(true);
             $table->foreignIdFor(Merchant::class);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
