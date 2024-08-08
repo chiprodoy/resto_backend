@@ -44,7 +44,6 @@ class AuthenticationTest extends TestCase
             'email' =>'test@example.com',
             'password' => 'password',
         ]);
-        dd($response->decodeResponseJson());
 
         $response->assertStatus(200)
             ->assertJsonStructure(['user', 'access_token']);
@@ -101,9 +100,8 @@ class AuthenticationTest extends TestCase
     {
         $user = User::first();
         $response = $this->json('POST', route('password.email'), ['email' => $user->email]);
-
         $response->assertStatus(200)
-            ->assertJsonStructure(['message']);
+            ->assertJsonStructure(['status']);
     }
 
     public function test_reset_password_success()
@@ -112,7 +110,7 @@ class AuthenticationTest extends TestCase
         $token = Password::broker()->createToken($user);
         $new_password = 'testpassword';
 
-        $response = $this->json('POST', route('password.update'), [
+        $response = $this->json('POST', route('password.store'), [
             'token' => $token,
             'email' => $user->email,
             'password' => $new_password,
@@ -120,6 +118,6 @@ class AuthenticationTest extends TestCase
         ]);
 
         $response->assertStatus(200)
-            ->assertJsonStructure(['message']);
+            ->assertJsonStructure(['status']);
     }
 }
