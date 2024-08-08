@@ -13,7 +13,7 @@ use function Laravel\Prompts\password;
 
 class AuthenticationTest extends TestCase
 {
-    use RefreshDatabase;
+   // use RefreshDatabase;
     /**
      * A basic feature test example.
      */
@@ -46,8 +46,10 @@ class AuthenticationTest extends TestCase
             'password' => 'password',
         ]);
 
+        //dd($response->decodeResponseJson());
+
         $response->assertStatus(200)
-            ->assertJsonStructure(['user', 'access_token']);
+            ->assertJsonStructure(['data'=>['user', 'access_token']]);
     }
 
     public function test_non_authenticated_user_cannot_get_user_details()
@@ -120,5 +122,15 @@ class AuthenticationTest extends TestCase
 
         $response->assertStatus(200)
             ->assertJsonStructure(['status']);
+
+             $token = Password::broker()->createToken($user);
+            // $new_password = 'testpassword';
+
+            $response = $this->json('POST', route('password.store'), [
+                'token' => $token,
+                'email' => $user->email,
+                'password' => 'password',
+                'password_confirmation' => 'password'
+            ]);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HeadlineController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,4 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/headline', [HeadlineController::class,'index']);
+
 require __DIR__.'/auth.php';

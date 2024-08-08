@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Resources\AuthResource;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -17,11 +19,8 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
-        $user = Auth::user();
-        $token = $request->user()->createToken('store');
-
         if($request->wantsJson()){
-            return response()->json(['user'=>$user,'access_token'=>$token->plainTextToken]);
+            return new AuthResource(User::find($request->user()->id));
         }else{
             $request->session()->regenerate();
             return response()->noContent();
