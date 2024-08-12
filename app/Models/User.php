@@ -51,6 +51,13 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
+        /**
+     * Get the comments for the blog post.
+     */
+    public function merchants()
+    {
+        return $this->belongsToMany(Merchant::class);
+    }
             /**
      * Get the comments for the blog post.
      */

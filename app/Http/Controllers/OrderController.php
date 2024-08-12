@@ -12,14 +12,20 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($status=null)
+    public function index(Request $request)
     {
         $orderModel = Order::orderBy('id','desc');
 
-        if(!empty($status)){
-            $orderModel::where('status_order',$status);
+        if(!empty($request->status_order)){
+            $orderModel->where('status_order',$request->status_order);
         }
-        return OrderResource::collection($orderModel->get());
+
+        if(!empty($request->meja_id)){
+            $orderModel->where('meja_id',$request->meja_id);
+        }
+
+        $data = $orderModel->get();
+        return OrderResource::collection($data);
     }
 
     /**
@@ -37,17 +43,12 @@ class OrderController extends Controller
     {
             // Retrieve the validated input data...
         $validated = $request->validated();
+        $validated['uuid'] = '-';
+        $validated['status_order'] = 'inorder';
 
-        $order = Order::create([
-            'item_name'=>$validated->item_name,
-            'satuan'=>$validated->satuan,
-            'price'=>$validated->price,
-            'qty'=>$validated->qty,
-            'meja_id'=>$validated->meja_id,
-           // 'status_order'=>$validated->status_order
-        ]);
+        $order = Order::create($validated);
 
-        return new OrderResource($order);
+        return (new OrderResource($order))->response()->setStatusCode(200);
     }
 
     /**
@@ -55,7 +56,7 @@ class OrderController extends Controller
      */
     public function show(string $uuid)
     {
-        $order = Order::where('uuid',$uuid)->get();
+        $order = Order::where('uuid',$uuid)->first();
         return new OrderResource($order);
     }
 

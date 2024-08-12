@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Meja extends MainModel
 {
     use HasFactory;
+    /**
+     * Get the post that owns the comment.
+     */
+    public function merchant()
+    {
+        return $this->belongsTo(Merchant::class);
+    }
 }

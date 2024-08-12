@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
-class OrderRequest extends FormRequest
+class InvoiceItemRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,12 +22,15 @@ class OrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'product_id'=>'required',
-            'item_name'=>'required',
-            'satuan'=>'required',
-            'price'=>'integer|min:1',
-            'qty'=>'integer|min:1',
-            'meja_id'=>'required'
+            'merchant_uuid'=>'required',
+            'meja_id'=>'required',
+            'order_uuid'=>'required',
+           // 'item_name'=>'required',
+           // 'satuan'=>'required',
+           // 'price'=>'required',
+           // 'qty'=>'required',
+           // 'total_price'=>'required',
+
         ];
     }
 }

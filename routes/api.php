@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\HeadlineController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\InvoiceItemController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +24,9 @@ Route::middleware(['auth:sanctum'])->group(function(){
         return $request->user();
     });
     Route::resource('product',ProductController::class);
+    Route::resource('order',OrderController::class);
+    Route::resource('invoice_item',InvoiceItemController::class);
+    Route::resource('invoice',InvoiceController::class);
 
 });
 

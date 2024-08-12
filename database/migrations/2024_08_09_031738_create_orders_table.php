@@ -29,6 +29,7 @@ return new class extends Migration
             // $table->dateTime('waktu_selesai_masak');
             $table->string('status_order')->default('inorder'); // inorder,cooking,invoice
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
