@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             ProductSeeder::class,
-            MejaSeeder::class
+            MejaSeeder::class,
+            BlogSeeder::class
         ]);
         // \App\Models\User::factory(10)->create();
 
