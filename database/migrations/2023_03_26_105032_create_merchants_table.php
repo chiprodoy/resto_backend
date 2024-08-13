@@ -26,9 +26,9 @@ return new class extends Migration
             $table->uuid('uuid');
             $table->string('merchant_name');
             $table->string('slug');
-            $table->string('merchant_address');
-            $table->string('merchant_email'); // untuk pemesanan
-            $table->string('merchant_phone'); // untuk pemesanan
+            $table->string('merchant_address')->nullable();
+            $table->string('merchant_email')->nullable(); // untuk pemesanan
+            $table->string('merchant_phone')->nullable(); // untuk pemesanan
             $table->integer('poin')->default(180); // 1 poin dikurangi setiap login per hari 1 poin = Rp.500
             $table->integer('rating')->default(0);
             $table->foreignIdFor(User::class,'merchant_owner_id'); // user id owner
