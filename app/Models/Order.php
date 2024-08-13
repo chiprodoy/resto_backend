@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class InvoiceItem extends Model
+class Order extends MainModel
 {
     use HasFactory;
 
     protected $fillable = [
-        'invoice_id',
         'uuid',
         'product_id',
         'item_name',
@@ -18,16 +17,6 @@ class InvoiceItem extends Model
         'price',
         'qty',
         'meja_id',
-        'total_price',
         'status_order'
     ];
-
-    public function setTotalPriceAttribute($value){
-        $this->attributes['total_price'] = $this->price * $this->qty; //
-    }
-
-    public function invoice(){
-        return $this->belongsTo(Invoice::class);
-
-    }
 }

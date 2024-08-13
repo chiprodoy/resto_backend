@@ -17,7 +17,6 @@ return new class extends Migration
         Schema::create('role_user', function (Blueprint $table) {
             $table->foreignIdFor(User::class);
             $table->foreignIdFor(Role::class);
-            $table->foreignIdFor(Merchant::class);
 
         });
     }

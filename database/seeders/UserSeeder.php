@@ -17,30 +17,34 @@ class UserSeeder extends Seeder
              'email' => 'test@example.com',
         ]);
 
-        $user->roles()->attach(1,['merchant_id'=>1]);
+        $user->roles()->attach(1);
+        $user->merchants()->attach(1);
 
 
-
-        $user = \App\Models\User::factory()->create([
+       $user = \App\Models\User::factory()->create([
             'name' => 'Waiter',
             'email' => 'waiters@example.com',
        ]);
 
-       $user->roles()->attach(2,['merchant_id'=>1]);
+        $user->roles()->attach(2);
+        $user->merchants()->attach(1);
+
 
         $user = \App\Models\User::factory()->create([
             'name' => 'Kasir',
             'email' => 'kasir@example.com',
        ]);
 
-       $user->roles()->attach(3,['merchant_id'=>1]);
+       $user->roles()->attach(3);
+       $user->merchants()->attach(1);
 
        $user = \App\Models\User::factory()->create([
         'name' => 'Dapur',
         'email' => 'dapur@example.com',
        ]);
 
-       $user->roles()->attach(4,['merchant_id'=>1]);
+       $user->roles()->attach(4);
+       $user->merchants()->attach(1);
 
     }
 }
