@@ -11,7 +11,7 @@ class Merchant extends MainModel
     use HasFactory;
 
     public function setSlugAttribute($value){
-        $this->attributes['slug'] = Str::slug('merchant_name');
+        $this->attributes['slug'] = Str::slug($value);
     }
 
             /**

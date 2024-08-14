@@ -18,8 +18,8 @@ class ProductSeeder extends Seeder
             'satuan'=>'pcs',
             'price'=>'15000',
             'merchant_id'=>1,
-            'uuid'=>'-'
-
+            'uuid'=>'-',
+            'product_image'=>'product1.jpg'
         ]);
 
         Product::create([
@@ -27,8 +27,8 @@ class ProductSeeder extends Seeder
             'satuan'=>'pcs',
             'price'=>'15000',
             'merchant_id'=>1,
-            'uuid'=>'-'
-
+            'uuid'=>'-',
+            'product_image'=>'product2.jpg'
         ]);
 
         Product::create([
@@ -36,8 +36,17 @@ class ProductSeeder extends Seeder
             'satuan'=>'pcs',
             'price'=>'15000',
             'merchant_id'=>1,
-            'uuid'=>'-'
+            'uuid'=>'-',
+            'product_image'=>'product3.jpg'
+        ]);
 
+        Product::create([
+            'product_name'=>'Sate Ayam',
+            'satuan'=>'pcs',
+            'price'=>'15000',
+            'merchant_id'=>1,
+            'uuid'=>'-',
+            'product_image'=>'product4.jpg'
         ]);
     }
 }
