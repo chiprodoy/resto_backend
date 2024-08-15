@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->uuid('uuid');
             $table->string('product_name');
+            $table->string('product_image');
             $table->string('satuan');
             $table->double('price');
             $table->boolean('stok_ada')->default(true);

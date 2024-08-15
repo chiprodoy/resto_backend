@@ -133,4 +133,27 @@ class AuthenticationTest extends TestCase
                 'password_confirmation' => 'password'
             ]);
     }
+
+    public function test_check_token_not_valid()
+    {
+
+
+        $response = $this->getJson(route('auth.check'),[
+            'Accept' => 'application/json',
+            'Content-Type' => 'application/json',
+            'Authorization' => 'Bearer ' . 'abc',
+        ]);
+
+        $response->assertStatus(401);
+    }
+    public function test_check_token_valid()
+    {
+        Sanctum::actingAs(
+            User::first(),
+        );
+
+        $response = $this->getJson(route('auth.check'));
+        //dd($response->decodeResponseJson());
+        $response->assertStatus(200);
+    }
 }

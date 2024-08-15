@@ -20,6 +20,8 @@ class ProductResource extends JsonResource
             'product_name'=>$this->product_name,
             'price'=>$this->price,
             'stok_ada'=>$this->stok_ada,
+            'product_image'=>$this->product_image
+
         ];
     }
 }
