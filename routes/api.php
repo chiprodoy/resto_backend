@@ -3,6 +3,7 @@
 use App\Http\Controllers\HeadlineController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\InvoiceItemController;
+use App\Http\Controllers\MejaController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
@@ -28,6 +29,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::resource('order',OrderController::class);
     Route::resource('invoice_item',InvoiceItemController::class);
     Route::resource('invoice',InvoiceController::class);
+    Route::resource('meja',MejaController::class);
 
     Route::get('auth/check/',function(Request $request){
         $user = Auth::user();
