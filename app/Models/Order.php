@@ -20,3 +20,8 @@ class Order extends MainModel
         'status_order'
     ];
 }
+class StatusOrder{
+    const INORDER = 'inorder';
+    const COOKING = 'cooking';
+    const INVOICE = 'invoice';
+}

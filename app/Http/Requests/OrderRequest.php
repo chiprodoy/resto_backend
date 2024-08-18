@@ -23,6 +23,7 @@ class OrderRequest extends FormRequest
     public function rules(): array
     {
         return [
+           // 'order_id'=>'required',
             'product_id'=>'required',
             'item_name'=>'required',
             'satuan'=>'required',

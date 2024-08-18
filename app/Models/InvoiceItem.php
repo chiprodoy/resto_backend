@@ -19,7 +19,8 @@ class InvoiceItem extends Model
         'qty',
         'meja_id',
         'total_price',
-        'status_order'
+        'status_order',
+        'order_id'
     ];
 
     public function setTotalPriceAttribute($value){

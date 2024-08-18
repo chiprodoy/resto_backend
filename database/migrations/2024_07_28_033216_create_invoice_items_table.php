@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\Invoice;
+use App\Models\Meja;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,6 +19,8 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Invoice::class);
             $table->foreignIdFor(Product::class)->nullable();
+            $table->foreignIdFor(Order::class);
+            $table->foreignIdFor(Meja::class)->nullable();
             $table->string('item_name');
             $table->string('satuan');
             $table->double('price');

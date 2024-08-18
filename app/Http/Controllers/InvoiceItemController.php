@@ -73,7 +73,8 @@ class InvoiceItemController extends Controller
                     'satuan'=>$order->satuan,
                     'price'=>$order->price,
                     'qty'=>$order->qty,
-                    'total_price'=>$order->price*$order->qty
+                    'total_price'=>$order->price*$order->qty,
+                    'order_id'=>$order->id
                 ]
             );
 
