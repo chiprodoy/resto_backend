@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\OrderRequest;
 use App\Http\Resources\OrderResource;
+use App\Models\InvoiceItem;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class OrderController extends Controller
 {
@@ -74,15 +76,25 @@ class OrderController extends Controller
     public function update(Request $request, string $id)
     {
         $validated = $request->validated();
-
-        $order = Order::create([
-            'item_name'=>$validated->item_name,
-            'satuan'=>$validated->satuan,
-            'price'=>$validated->price,
-            'qty'=>$validated->qty,
-            'meja_id'=>$validated->meja_id,
-           // 'status_order'=>$validated->status_order
-        ]);
+        if(Str::isUuid($id)){
+            $order = Order::where('uuid',$id)->update([
+                'item_name'=>$validated->item_name,
+                'satuan'=>$validated->satuan,
+                'price'=>$validated->price,
+                'qty'=>$validated->qty,
+                'meja_id'=>$validated->meja_id,
+                'status_order'=>$validated->status_order
+            ]);
+        }else{
+            $order = Order::create([
+                'item_name'=>$validated->item_name,
+                'satuan'=>$validated->satuan,
+                'price'=>$validated->price,
+                'qty'=>$validated->qty,
+                'meja_id'=>$validated->meja_id,
+               // 'status_order'=>$validated->status_order
+            ]);
+        }
 
         return new OrderResource($order);
     }
@@ -90,8 +102,21 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id,Request $request)
     {
+        $order = Order::limit(1);
+        if(!empty($request->meja) && !empty($request->product)){
+            $order->where('meja_id',$request->meja)->where('product_id',$request->product);
+        }else{
+            $order->where('uuid',$id);
+        }
+        $orderItem = $order->first();
+        $act = $order->delete();
+        if($act){
+            InvoiceItem::where('order_id',$orderItem->id)->limit(1)->delete();
+            return response()->json();
+        }
+
         //
     }
 }

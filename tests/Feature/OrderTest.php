@@ -125,6 +125,27 @@ class OrderTest extends TestCase
         assertTrue(count($order)==count($invoice['invoice_item']));
 
     }
+
+    public function test_waiters_can_decrement_order(){
+        $role = Role::where('role_name','waiter')->first();
+        $user = $role->users()->with('merchants')->first();
+        //dd($user);
+        Sanctum::actingAs(
+            $user
+        );
+
+        $this->setProduct();
+        $response = $this->deleteJson('/api/order/1',
+            [
+              'product'=>$this->product['product_id'],
+              'meja'=>$this->product['meja_id']
+            ]
+        );
+
+       // dd($response->decodeResponseJson());
+
+        $response->assertStatus(200);
+    }
     /**
      * A basic feature test example.
      */
