@@ -7,6 +7,7 @@ use App\Http\Resources\OrderResource;
 use App\Models\InvoiceItem;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class OrderController extends Controller
@@ -110,6 +111,7 @@ class OrderController extends Controller
         }else{
             $order->where('uuid',$id);
         }
+
         $orderItem = $order->first();
         $act = $order->delete();
         if($act){
