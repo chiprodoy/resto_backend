@@ -30,7 +30,26 @@ class OrderController extends Controller
         $data = $orderModel->get();
         return OrderResource::collection($data);
     }
+ /**
+     * Display a listing of the resource.
+     */
+    public function summary(Request $request)
+    {
+        $orderModel = Order::selectRaw('count(product_id) as qty, product_id,item_name,satuan,price,meja_id,status_order');
 
+        $orderModel->groupBy('product_id','item_name','satuan','price','meja_id','status_order');
+
+        if(!empty($request->status_order)){
+            $orderModel->where('status_order',$request->status_order);
+        }
+
+        if(!empty($request->meja_id)){
+            $orderModel->where('meja_id',$request->meja_id);
+        }
+
+        $data = $orderModel->get();
+        return OrderResource::collection($data);
+    }
     /**
      * Show the form for creating a new resource.
      */

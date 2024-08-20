@@ -20,7 +20,8 @@ class InvoiceItem extends Model
         'meja_id',
         'total_price',
         'status_order',
-        'order_id'
+        'order_id',
+        'invoice_id'
     ];
 
     public function setTotalPriceAttribute($value){

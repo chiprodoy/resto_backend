@@ -79,16 +79,19 @@ class OrderTest extends TestCase
 
         foreach($order as $k => $v){
             $responseInvoiceItem = $this->postJson(route('invoice_item.store'),
-                ['meja_id'=>$v['meja_id'],'order_uuid'=>$v['uuid'],'merchant_uuid'=>$merchant->uuid]
+                [
+                    'meja_id'=>$v['meja_id'],
+                    //'merchant_uuid'=>$merchant->uuid
+                ]
             );
-
             $responseOrder=$this->getJson(route('order.show',$v['uuid']));
         }
+        //dd($responseInvoiceItem->decodeResponseJson());
 
         $invoiceItem=$responseInvoiceItem->json();
         $invoiceItemData=$invoiceItem['data'];
 
-        $invoiceRespon = $this->getJson(route('invoice.show',$invoiceItemData['invoice']['invoice_number']));
+        $invoiceRespon = $this->getJson(route('invoice.show',$invoiceItemData[0]['invoice']['invoice_number']));
 
         $responseInvoiceItem->assertStatus(200);
 
@@ -97,7 +100,7 @@ class OrderTest extends TestCase
                ->has('data',  fn ($json) => $json->where('item_name', $order[0]['item_name'])
                    ->where('product_id',$order[0]['product_id'])
                    ->where('meja_id',$order[0]['meja_id'])
-                   ->where('status_order','invoice')
+                   ->where('status_order','cooking')
                    ->etc()
                 )
         );
@@ -114,7 +117,7 @@ class OrderTest extends TestCase
 
         $this->setProduct();
 
-        $orderHttpRequest = $this->getJson(route('order.index').'?status_order=invoice&meja_id='.$this->product['meja_id']);
+        $orderHttpRequest = $this->getJson(route('order.index').'?status_order=cooking&meja_id='.$this->product['meja_id']);
         $result = $orderHttpRequest->json();
         $order = $result['data'];
 

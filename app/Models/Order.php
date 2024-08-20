@@ -19,6 +19,14 @@ class Order extends MainModel
         'meja_id',
         'status_order'
     ];
+
+        /**
+     * Get the post that owns the comment.
+     */
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }
 class StatusOrder{
     const INORDER = 'inorder';
