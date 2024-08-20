@@ -27,6 +27,8 @@ Route::middleware(['auth:sanctum'])->group(function(){
     });
     Route::resource('product',ProductController::class);
     Route::resource('order',OrderController::class);
+    Route::get('/order_summary',[OrderController::class,'summary'])->name('order.summary');
+
     Route::resource('invoice_item',InvoiceItemController::class);
     Route::resource('invoice',InvoiceController::class);
     Route::resource('meja',MejaController::class);

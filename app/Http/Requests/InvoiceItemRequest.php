@@ -22,9 +22,8 @@ class InvoiceItemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'merchant_uuid'=>'required',
+           // 'merchant_uuid'=>'required',
             'meja_id'=>'required',
-            'order_uuid'=>'required',
            // 'item_name'=>'required',
            // 'satuan'=>'required',
            // 'price'=>'required',

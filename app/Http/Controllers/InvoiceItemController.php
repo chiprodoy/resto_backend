@@ -45,9 +45,11 @@ class InvoiceItemController extends Controller
 
         $validated = $request->validated();
 
-        $merchant = Auth::user()->merchants()->where('uuid',$validated['merchant_uuid'])->first();
+        $merchant = Auth::user()->merchants()->first();
 
-        Order::where('uuid',$validated['order_uuid'])->update(['status_order'=>'cooking']);
+        $order = Order::where('meja_id',$validated['meja_id'])
+        ->where('status_order','inorder');
+
 
         $invoice = Invoice::where('meja_id',$validated['meja_id'])
         ->where('status_pembayaran','belumlunas')
@@ -62,26 +64,26 @@ class InvoiceItemController extends Controller
             ]);
         }
 
-        $order = Order::where('uuid',$validated['order_uuid'])
-        ->where('status_order','cooking')
-        ->first();
+        $orderItem = $order->get();
 
-        $invoiceItem =    InvoiceItem::create(
-                [   'invoice_id'=>$invoice->id,
-                    'product_id'=>$order->product_id,
-                    'item_name'=>$order->item_name,
-                    'satuan'=>$order->satuan,
-                    'price'=>$order->price,
-                    'qty'=>$order->qty,
-                    'total_price'=>$order->price*$order->qty,
-                    'order_id'=>$order->id
-                ]
+        foreach($orderItem as  $k => $order){
+            InvoiceItem::create(
+                            [   'invoice_id'=>$invoice->id,
+                                'product_id'=>$order->product_id,
+                                'item_name'=>$order->item_name,
+                                'satuan'=>$order->satuan,
+                                'price'=>$order->price,
+                                'qty'=>$order->qty,
+                                'total_price'=>$order->price*$order->qty,
+                                'order_id'=>$order->id
+                            ]
             );
+        $order->update(['status_order'=>'cooking']);
 
-            Order::where('product_id',$order->product_id)
-            ->where('meja_id',$validated['meja_id'])->update(['status_order'=>'invoice']);
+        }
+        $invoiceItem = InvoiceItem::where('invoice_id',$invoice->id)->get();
 
-            return (new InvoiceItemResource($invoiceItem))->response()->setStatusCode(200);
+        return (InvoiceItemResource::collection($invoiceItem))->response()->setStatusCode(200);
 
     }
 

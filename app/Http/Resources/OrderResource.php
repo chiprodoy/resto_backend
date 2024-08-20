@@ -22,7 +22,8 @@ class OrderResource extends JsonResource
             'price'=>$this->price,
             'qty'=>$this->qty,
             'meja_id'=>$this->meja_id,
-            'status_order'=>$this->status_order
+            'status_order'=>$this->status_order,
+            'product'=>$this->product
         ];
     }
 }
