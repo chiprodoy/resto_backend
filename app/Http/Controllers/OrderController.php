@@ -118,7 +118,18 @@ class OrderController extends Controller
 
         return new OrderResource($order);
     }
+ /**
+     * Update the specified resource in storage.
+     */
+    public function update_status(string $id,$status_order)
+    {
 
+        $order = Order::where('uuid',$id)->update([
+                'status_order'=>$status_order
+        ]);
+
+        return new OrderResource($order);
+    }
     /**
      * Remove the specified resource from storage.
      */

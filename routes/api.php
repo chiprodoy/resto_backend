@@ -28,6 +28,8 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::resource('product',ProductController::class);
     Route::resource('order',OrderController::class);
     Route::get('/order_summary',[OrderController::class,'summary'])->name('order.summary');
+    Route::post('/order_status/{id}/{status}',[OrderController::class,'update_status'])->name('order.update.status');
+
 
     Route::resource('invoice_item',InvoiceItemController::class);
     Route::resource('invoice',InvoiceController::class);

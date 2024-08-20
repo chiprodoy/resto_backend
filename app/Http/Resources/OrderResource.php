@@ -23,7 +23,8 @@ class OrderResource extends JsonResource
             'qty'=>$this->qty,
             'meja_id'=>$this->meja_id,
             'status_order'=>$this->status_order,
-            'product'=>$this->product
+            'product'=>$this->product,
+            'meja'=>$this->meja
         ];
     }
 }

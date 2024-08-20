@@ -16,7 +16,7 @@ class MejaResource extends JsonResource
     {
         return [
             'nmr_meja'=>$this->nmr_meja,
-            'merchants' => $this->merchants
+            'merchant' => $this->merchant
         ];
     }
 }

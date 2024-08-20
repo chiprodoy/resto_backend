@@ -27,6 +27,13 @@ class Order extends MainModel
     {
         return $this->belongsTo(Product::class);
     }
+            /**
+     * Get the post that owns the comment.
+     */
+    public function meja()
+    {
+        return $this->belongsTo(Meja::class);
+    }
 }
 class StatusOrder{
     const INORDER = 'inorder';
