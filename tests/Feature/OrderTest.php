@@ -149,6 +149,27 @@ class OrderTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function test_kitchen_can_set_status_order_from_cooking_to_invoice(){
+        $role = Role::where('role_name','dapur')->first();
+        $user = $role->users()->first();
+        $merchant = $user->merchants[0];
+
+        Sanctum::actingAs(
+            $user
+        );
+
+        $this->setProduct();
+
+        $orderHttpRequest = $this->getJson(route('order.index').'?status_order=cooking');
+        $result = $orderHttpRequest->json();
+        $order = $result['data'];
+
+        $responseOrder = $this->postJson(route('order.update.status',['id'=>$order[0]['uuid'],'status'=>'invoice']));
+        //dd($responseInvoiceItem->decodeResponseJson());
+
+        $responseOrder->assertStatus(200);
+    }
     /**
      * A basic feature test example.
      */

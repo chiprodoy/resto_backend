@@ -124,10 +124,10 @@ class OrderController extends Controller
     public function update_status(string $id,$status_order)
     {
 
-        $order = Order::where('uuid',$id)->update([
+        Order::where('uuid',$id)->update([
                 'status_order'=>$status_order
         ]);
-
+        $order = Order::where('uuid',$id)->first();
         return new OrderResource($order);
     }
     /**
