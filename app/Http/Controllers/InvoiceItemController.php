@@ -68,15 +68,15 @@ class InvoiceItemController extends Controller
 
         foreach($orderItem as  $k => $order){
             InvoiceItem::create(
-                            [   'invoice_id'=>$invoice->id,
-                                'product_id'=>$order->product_id,
-                                'item_name'=>$order->item_name,
-                                'satuan'=>$order->satuan,
-                                'price'=>$order->price,
-                                'qty'=>$order->qty,
-                                'total_price'=>$order->price*$order->qty,
-                                'order_id'=>$order->id
-                            ]
+                [   'invoice_id'=>$invoice->id,
+                    'product_id'=>$order->product_id,
+                    'item_name'=>$order->item_name,
+                    'satuan'=>$order->satuan,
+                    'price'=>$order->price,
+                    'qty'=>$order->qty,
+                    'total_price'=>$order->price*$order->qty,
+                    'order_id'=>$order->id
+                ]
             );
         $order->update(['status_order'=>'cooking']);
 
@@ -116,6 +116,9 @@ class InvoiceItemController extends Controller
      */
     public function destroy(string $id)
     {
+        $invoiceItem = InvoiceItem::where('uuid',$id)->first();
+        $invoiceItem->delete();
+        return response()->json();
         //
     }
 }
