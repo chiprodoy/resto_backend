@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\InvoiceUpdateStatusRequest;
 use App\Http\Resources\InvoiceResource;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 class InvoiceController extends Controller
 {
@@ -79,8 +81,26 @@ class InvoiceController extends Controller
     public function update(Request $request, string $id)
     {
         //
-    }
 
+    }
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update_status(InvoiceUpdateStatusRequest $request, string $id)
+    {
+        //
+        Invoice::where('invoice_number',$id)->update([
+            'percent_tax'=>$request->percent_tax,
+            'tax_amount'=>$request->tax_amount,
+            'percent_amount'=>$request->percent_amount,
+            'discount_amount'=>$request->discount_amount,
+            'total'=>$request->total,
+            'status_pembayaran'=>$request->status_pembayaran,
+            'pic'=>Auth::user()->name
+        ]);
+
+        return response()->json();
+    }
     /**
      * Remove the specified resource from storage.
      */
