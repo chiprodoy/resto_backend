@@ -33,6 +33,8 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
     Route::resource('invoice_item',InvoiceItemController::class);
     Route::resource('invoice',InvoiceController::class);
+    Route::post('invoice/{uuid}/status',[InvoiceController::class,'update_status']);
+
     Route::get('/invoice_summary/{nmr_invoice}',[InvoiceController::class,'summary'])->name('invoice.summary');
 
     Route::resource('meja',MejaController::class);
